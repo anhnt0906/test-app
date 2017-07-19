@@ -10,9 +10,8 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $data = Array();
-        $data['products'] = Product::all();
-        return view('admin.product.view', $data);
+        $products = Product::all();
+        return view('admin.product.view', ['products' => $products]);
     }
 
     public function createProduct()
@@ -60,10 +59,41 @@ class ProductController extends Controller
 
     public function editProduct($id)
     {
-        return view('admin.product.edit');
+        $product = Product::find($id);
+        return view('admin.product.edit', ['product' => $product]);
     }
 
-    public function saveEditProduct(Request $request)
+    public function saveEditProduct(Request $request,$id)
     {
+        $this->validate($request,
+            [
+                'name'        => 'required|min:3|max:100',
+                'description' => 'required|max:300',
+                'price'       => 'required|max:10',
+            ]
+        );
+        $product = Product::find($id);
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->price = $request->price;
+        if ($request->hasFile('photo')) {
+            $this->validate($request, ['photo' => 'max:10240',]);
+            $photo = $this->validImage($request);
+            if ($photo) {
+                $product->photo = $photo;
+            }
+        }
+        if($product->save()){
+            return redirect()->route('product.view')->with('msg','Edit product successfully');
+        }
+    }
+
+    public function deleteProduct($id)
+    {
+        $msg = "Deleted product fail";
+        if (Product::where('id', $id)->update(['deleted' => 1])) {
+            $msg = "Deleted product successfully";
+        }
+        return redirect()->back()->with('msg', $msg);
     }
 }
