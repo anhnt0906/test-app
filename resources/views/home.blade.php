@@ -22,7 +22,7 @@
                 @endforeach
             </div>
         @else
-            <h2>NNNNNN</h2>
+            <h2>List product empty</h2>
         @endif
     </div>
 @endsection
