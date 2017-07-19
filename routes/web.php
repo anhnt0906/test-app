@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','HomeController@index');
 
 Route::prefix('admin')->group(function () {
     Route::prefix('product')->group(function () {
@@ -25,3 +23,7 @@ Route::prefix('admin')->group(function () {
         Route::get('delete/{id}', 'admin\ProductController@deleteProduct')->where('id', '[0-9]+')->name('product.delete');
     });
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
