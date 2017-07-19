@@ -25,6 +25,6 @@
         <button type="submit" class="btn btn-default">Add new</button>
     </form>
     @else
-        <h2 class="alert alert-danger">This product is not exist</h2>
+        <h2 class="alert alert-danger text-center">This product is not exist</h2>
     @endif
 @stop

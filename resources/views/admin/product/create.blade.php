@@ -3,6 +3,18 @@
     <div class="page-header">
         <h1>Product <small>Add new product</small></h1>
     </div>
+    @if(count($errors)>0)
+        <div class="alert alert-danger">
+            @foreach($errors->all() as $err)
+                {{$err}}<br>
+            @endforeach
+        </div>
+    @endif
+    @if(session('msg'))
+        <div class="alert alert-danger">
+            {{session('msg')}}
+        </div>
+    @endif
     <form method="POST" enctype="multipart/form-data" action="{{route('product.create')}}">
         <input type="hidden" name="_token" value="{{csrf_token()}}">
         <div class="form-group">
