@@ -6,6 +6,12 @@
                 <small>All product</small>
             </h1>
             <a href="{{route('product.create')}}" class="btn btn-primary">Add new</a>
+            @if(session('msg'))
+                <br>
+                <div class="alert">
+                    {{session('msg')}}
+                </div>
+            @endif
         </div>
         @if(count($products) >0)
             <table class="table table-bordered table-responsive">
@@ -25,7 +31,7 @@
                         <td><img src="data:image/png;base64,{{$product->photo}}" alt="{{$product->name}}"
                                  height="80px"/></td>
                         <td class="center">
-                            <a class="btn btn-danger" href="{{route('product.delete',['id'=> $product->id])}}"
+                            <a class="btn btn-danger" href="{{url('admin/product/delete',['id'=> $product->id])}}"
                                onclick="return confirm('Are you sure you want to delete this product?');">
                                 Delete
                             </a>
