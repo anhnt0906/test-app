@@ -19,15 +19,15 @@
         <input type="hidden" name="_token" value="{{csrf_token()}}">
         <div class="form-group">
             <label for="name">Name:</label>
-            <input type="text" class="form-control" required name="name">
+            <input type="text" class="form-control" required name="name" value="{{old('name')}}">
         </div>
         <div class="form-group">
             <label for="des">Description:</label>
-            <textarea class="form-control" name="description" id="des" required></textarea>
+            <textarea class="form-control" name="description" id="des" required>{{old('description')}}</textarea>
         </div>
         <div class="form-group">
             <label>Price:</label>
-            <input type="number" min="0" class="form-control" required name="price">
+            <input type="number" min="0" class="form-control" value="{{old('price')}}" required name="price">
         </div>
         <div class="form-group">
             <label>Photo:</label>
